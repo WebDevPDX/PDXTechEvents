@@ -1,3 +1,141 @@
-.wrapper{
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+h1, h4 {
+	text-align: center;
+}
+
+div {
+	box-sizing: border-box;
+	padding-left: 1em;
+}
+
+.wrapper {
 	width: 90%;
+	margin: auto;
+	margin-top: 0; 
+	padding-left: 0;
+}
+
+.event {
+	background-color: #ddd;
+	margin-top: 2%;
+	padding-left: 0;
+	width: 100%;
+}
+
+.title {
+	width: 100%;
+	background-color: #bbb;
+	padding: 2px;
+}
+
+.title h3 {
+	margin: 0;
+	padding: 2px 0;
+}
+
+.description {
+	width: 100%;
+	margin-top: 1%;
+	height: 8em;
+	overflow: hidden;
+	background-color: #bbb;
+	padding: 2px;
+}
+
+.description.full {
+	height: 100%;
+}
+
+.description span {
+	font-size: .8em;
+	color: #811;
+}
+
+.date {
+	width: 100%;
+	margin-top: 1%;
+	background-color: #bbb;
+	padding: 2px;
+}
+
+.venue {
+	width: 100%;
+	margin-top: 1%;
+	background-color: #bbb;
+	padding: 2px;
+}
+
+.rsvp {
+	display: inline-block;
+	width: 49.5%;
+	margin-top: 1%;
+	margin-left: 1%;
+	background-color: #bbb;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+.rsvp_yes {
+	margin-left: 0;
+}
+
+.rsvp_maybe {
+	margin-left: 0;
+}
+
+.signup {
+	width: 100%;
+	text-align: center;
+	margin-top: 1%;
+	background-color: #bbb;
+	padding: 2px;
+}
+
+/*****************************
+MEDIA QUESRIES
+*****************************/
+
+@media screen and (min-width: 550px) {
+	.rsvp {
+		width: 24.25%;
+	}
+
+	.rsvp_maybe {
+		margin-left: 1%;
+	}
+
+	.description {
+		height: 5em;
+	}
+
+}
+
+@media screen and (min-width: 800px) {
+	.event {
+		width: 46%;
+		margin: 2% 1% 0 1%;
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	.rsvp {
+		width: 49.5%;
+	}
+
+	.rsvp_maybe {
+		margin-left: 0;
+	}
+}
+
+@media screen and (min-width: 1000px) {
+	.rsvp {
+		width: 24.25%;
+	}
+
+	.rsvp_maybe {
+		margin-left: 1%;
+	}
 }

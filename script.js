@@ -6,16 +6,56 @@ $.ajax ({
 	dataType: "jsonp",
 	success: function(data){
 		console.log(data);
-	$('.wrapper').append('<div class="event"></div>')	
-	$('.event').append('<div class="title"><h3>' + data.results[0].name + '</h3></div>' );
-	$('.event').append('<div class="description">' + data.results[0].description + '</div>');
-	$('.event').append('<div class="date">' + new Date(data.results[0].time) + '</div>');
-	$('.event').append('<div class="venue">' + data.results[0].venue.name + ' @ ' + data.results[0].venue.address_1 + '</div>');
-	$('.event').append('<div class="rsvp_yes">Yes: ' + data.results[0].yes_rsvp_count + '</div>');
-	$('.event').append('<div class="rsvp_maybe">Maybe: ' + data.results[0].maybe_rsvp_count + '</div>');
-	$('.event').append('<div class="rsvp_no">No: ' + data.results[0].no_rsvp_count + '</div>');
-	$('.event').append('<div class="waitlist">Waitlist: ' + data.results[0].waitlist_count + '</div>');
-	$('.event').append('<div class="signup"><a href="' + data.results[0].event_url + '" target="blank">Sign up for the event</a></div>')
+	var i = 0;	
+	$.each(data.results, function(){
+
+		//create the event wrapper
+		$('.wrapper').append('<div class="event' + ' ' + i + '"></div>')	
+
+		//select event wrapper and append content for each event
+
+		//check if content exists in json file, if it does append it, otherwise move on to next step
+		if (data.results[i].name){
+			$('.' +i).append('<div class="title"><h3>' + data.results[i].name + '</h3></div>' );
+		};
+		if (data.results[i].description) {
+			$('.' +i).append('<div class="description"><span>Click this field to read the full event description...</span></br>' + (data.results[i].description) + '...' + '' + '</div>');
+		};
+		
+		if (data.results[i].time) {
+			$('.' +i).append('<div class="date">' + new Date(data.results[i].time) + '</div>');
+		};
+		if (data.results[i].venue) {
+			$('.' +i).append('<div class="venue">' + data.results[i].venue.name + ' @ ' + data.results[0].venue.address_1 + '</div>');
+		};
+		if (data.results[i].yes_rsvp_count) {
+			$('.' +i).append('<div class="rsvp_yes rsvp">Yes: ' + data.results[i].yes_rsvp_count + '</div>');
+		};
+		if (data.results[i].no_rsvp_count) {
+			$('.' +i).append('<div class="rsvp_no rsvp">No: ' + data.results[i].no_rsvp_count + '</div>');
+		} else {
+			$('.' +i).append('<div class="rsvp_no rsvp">No: 0</div>');
+		};
+		
+		
+//if check not working with maybe_rsvp_count (figure out why)
+		$('.' +i).append('<div class="rsvp_maybe rsvp">Maybe: ' + data.results[i].maybe_rsvp_count + '</div>');
+		
+
+//if check not working with maybe_rsvp_count (figure out why)
+		$('.' +i).append('<div class="waitlist rsvp">Waitlist: ' + data.results[i].waitlist_count + '</div>');
+		
+		if (data.results[i].event_url) {
+			$('.' +i).append('<div class="signup"><a href="' + data.results[i].event_url + '" target="blank">Sign up for the event</a></div>')
+		};
+		i++;
+	});
 	}
 });
+
+setTimeout(function(){
+	$('.description').click(function(){
+		$(this).toggleClass('full');
+	});
+}, 2000);
 
