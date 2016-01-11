@@ -45,6 +45,11 @@ form {
 	cursor: pointer;
 }
 
+.nothingHere {
+	text-align: center;
+	margin-top: 3rem;
+}
+
 .alert {
 	background-color: tomato;
 	height: 40px;
