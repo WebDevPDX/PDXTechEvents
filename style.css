@@ -13,6 +13,7 @@ div {
 
 .wrapper {
 	width: 90%;
+	max-width: 1100px;
 	margin: auto;
 	margin-top: 0; 
 	padding-left: 0;
@@ -34,7 +35,7 @@ form {
 	padding: 0 15px;
 	font-size: 1.5rem;
 	width: 130px;
-
+	vertical-align: bottom;
 }
 
 .button {
@@ -43,6 +44,7 @@ form {
 	border-radius: 3px;
 	border: 1px solid gray;
 	cursor: pointer;
+	vertical-align: bottom;
 }
 
 .nothingHere {
@@ -155,12 +157,6 @@ MEDIA QUESRIES
 }
 
 @media screen and (min-width: 800px) {
-	.event {
-		width: 46%;
-		margin: 2% 1% 0 1%;
-		display: inline-block;
-		vertical-align: top;
-	}
 
 	.rsvp {
 		width: 49.5%;

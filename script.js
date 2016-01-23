@@ -72,7 +72,7 @@ $('.button').click(function(){
 					if (data.results[i].maybe_rsvp_count) {
 						$('.' +i).append('<div class="rsvp_maybe rsvp">Maybe: ' + data.results[i].maybe_rsvp_count + '</div>');
 					} else {
-						$('.' +i).append('<div class="waitlist rsvp">Waitlist: 0</div>');
+						$('.' +i).append('<div class="rsvp_maybe rsvp">Maybe: 0</div>');
 					}
 					if (data.results[i].waitlist_count) {
 						$('.' +i).append('<div class="waitlist rsvp">Waitlist: ' + data.results[i].waitlist_count + '</div>');
