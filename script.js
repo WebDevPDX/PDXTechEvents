@@ -1,18 +1,6 @@
 var data;
 
-$('.button').click(function(){
-	var zipSearch = ($('.zipcode').val());
-
-	//remove any previously attached events
-	$('.event').remove();
-	
-	if (zipSearch.length != 5 || isNaN(zipSearch)) {
-		$('.alert').remove();
-		$('form').append('<div class="alert">This is not a valid zip code.</div>')
-	} else {
-		console.log(zipSearch);
-		$('.alert').remove();
-
+var ajaxCall = function(data, zipSearch){
 	$.ajax ({
 		type: "GET",
 		url: "http://api.meetup.com/2/open_events/?zip=" + zipSearch + "&and_text=False&offset=0&format=json&limited_events=False&photo-host=public&page=100&radius=25&category=34&desc=False&status=upcoming&sign=true&key=54347e276174919776f82826417369",
@@ -87,14 +75,35 @@ $('.button').click(function(){
 			}
 		}	
 	});
+}
+
+var zipCheck = function(zipSearch) {
+	if (zipSearch.length != 5 || isNaN(zipSearch)) {
+		$('.alert').remove();
+		$('form').append('<div class="alert">This is not a valid zip code.</div>')
+	} else {
+		$('.alert').remove();
+		ajaxCall();
 	}
+}
+
+
+
+$('.zipInput').submit(function(e){
+	e.preventDefault();
+	var zipSearch = ($('.zipcode').val());
+	zipCheck(zipSearch);
+});
+
+$('.button').click(function(){
+	var zipSearch = ($('.zipcode').val());
+	zipCheck(zipSearch);
+	//remove any previously attached events
+	$('.event').remove();
 });
 
 $(document).ajaxComplete(function(){
-//setTimeout(function(){
-	console.log('ajax complete');
 	$('.description').click(function(){
 		$(this).toggleClass('full');
 	});
-//}, 2000);
 });
