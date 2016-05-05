@@ -1,0 +1,26 @@
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+.form-control {
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+.form-inline {
+    text-align: center;
+}
+
+.affix {
+    top: 0px;
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.panel-body {
+	border-top: 1px solid #D1D1D1;
+}
+
+.panel-group .panel-footer {
+	border-top: 1px solid #D1D1D1;
+}

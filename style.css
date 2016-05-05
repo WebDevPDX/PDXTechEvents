@@ -137,11 +137,26 @@ form {
 	padding: 2px;
 }
 
+.geoButton {
+	margin-top: 1em;
+	margin-right: auto;
+	margin-left: auto;
+	max-width: 50%;
+	text-align: center;
+	display: block;
+}
+
 /*****************************
 MEDIA QUESRIES
 *****************************/
 
 @media screen and (min-width: 550px) {
+	.geoButton {
+		margin-left: 5%;
+		max-width: 50%;
+		text-align: center;
+		display: inline-block;
+	}
 	.rsvp {
 		width: 24.25%;
 	}

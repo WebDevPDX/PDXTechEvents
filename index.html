@@ -1,27 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
-	<title>Tech Meetup Events</title>
-	<meta name="viewport" content="width=320, initial-scale=1">
-	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-	<link type="text/css" rel="stylesheet" href="style.css">
-	<meta charset="UTF-8">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Collection of Tech Meetup Events based on location">
+		<meta name="author" content="Falk Schwiefert (webdevpdx.com)">
+		<title>Tech Meetup Events</title>
+		<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet'>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" href="newstyle.css">
 	</head>
 	<body>
-		<header>
-			<h1>Tech Meetup Events</h1>
-		</header>
-		<section class="search">
-			<p class="zip">Please enter the 5 digit zip code would you like to check for events?</p>
-			<form class="zipInput">
-				<input class="zipcode input" type="text" value = "" pattern="\d*">
-				<div class="button input">Go</div>
-			</form>
-		</section>
-		<section class="result">
-			<div class="wrapper"></div>
-		</section>
+		<div class="container">
+			<div class="row">
+				<div class="jumbotron">
+					<header>
+						<h1 class="text-center">Tech Meetup Events</h1>
+					</header>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="jumbotron">
+					<p class="lead text-center">Please enter the 5 digit zip code or click the "My location" button for automatic detection</p>
+					<form class="zipInput form-inline" id="zipInput">
+						<fieldset class="form-group">
+							<label class="sr-only" for="zipcode">Zip Code</label>
+							<input class="zipcode btn-lg form-control" id="zipcode" type="text" value="" pattern="\d*" placeholder="ZIP code">
+						</fieldset>
+						<button class="btn btn-info form-control" id="zipButton">Go</button>
+						<button class="btn btn-info form-control" id="geoButton">Detect My Location</button>
+							<!-- <div class="zipButton button input">Go</div>
+							<div class="geoButton button input">Detect My Location</div> -->				
+					</form>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-9">
+					<div class="panel-group" id="contentWrapper"></div>
+				</div>
+				<div class="col-md-3" id="sideBar">
+					<nav class="bs-docs-sidebar hidden-xs" data-spy="affix" data-offset-top="320" id="myScrollspy">
+						<ul class="nav nav-stacked bs-docs-sidenav" id="scrollSpyList">
+							
+						</ul>
+					</nav>
+				</div>
+			</div>
+
+			<section class="geoLocation">
+				<div class="wrapper">
+					<div id="map">				    
+					    <div class="longitude">
+					    </div>
+					    <div class="lattitude">
+					    </div>
+					</div> 
+				</div>
+			</section>
+			<section class="result">
+				
+			</section>
+		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script src="script.js"></script>		
 	</body>
 </html>
+
+
+                    
+
+                    
+
