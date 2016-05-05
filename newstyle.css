@@ -24,3 +24,7 @@ body {
 .panel-group .panel-footer {
 	border-top: 1px solid #D1D1D1;
 }
+
+.table>tbody>tr>td {
+	padding: 15px;
+}

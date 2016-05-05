@@ -57,27 +57,27 @@ var buildUI = function(data) {
 				} 
 			};
 			if (data.results[i].yes_rsvp_count) {
-				$('.' +i).append('<div class="panel-body">Yes: ' + data.results[i].yes_rsvp_count + '</div></div>');
+				$('.' +i).append('<table class="table"><tbody><tr id="RSVP' + i + '"><td>Yes: ' + data.results[i].yes_rsvp_count + '</td>');
 			};
 			//if there is a no_rsvp_count then (if the object has a value of 0 it still needs to be manually set to 0 
 			//otherwise it is interpreted as boolean "false")
 			if (data.results[i].no_rsvp_count) {
 				//add this as a div
-				$('.' +i).append('<div class="panel-body">No: ' + data.results[i].no_rsvp_count + '</div>');
+				$('#RSVP' + i).append('<td>No: ' + data.results[i].no_rsvp_count + '</td>');
 				//otherwise
 			} else {
 				//just write 0 
-				$('.' +i).append('<div class="panel-body">No: 0</div>');
+				$('#RSVP' + i).append('<td>No: 0</td>');
 			};
 			if (data.results[i].maybe_rsvp_count) {
-				$('.' +i).append('<div class="panel-body">Maybe: ' + data.results[i].maybe_rsvp_count + '</div>');
+				$('#RSVP' + i).append('<td>Maybe: ' + data.results[i].maybe_rsvp_count + '</td>');
 			} else {
-				$('.' +i).append('<div class="panel-body">Maybe: 0</div>');
+				$('#RSVP' + i).append('<td>Maybe: 0</td>');
 			}
 			if (data.results[i].waitlist_count) {
-				$('.' +i).append('<div class="panel-body">Waitlist: ' + data.results[i].waitlist_count + '</div>');
+				$('#RSVP' + i).append('<td>Waitlist: ' + data.results[i].waitlist_count + '</td>');
 			} else {
-				$('.' +i).append('<div class="panel-body">Waitlist: 0</div>');
+				$('#RSVP' + i).append('<td>Waitlist: 0</td></tr></tbody></table>');
 			};
 			if (data.results[i].event_url) {
 				$('.' +i).append('<div class="panel-footer"><a href="' + data.results[i].event_url + '" target="blank">Sign up for the event</a></div>')
