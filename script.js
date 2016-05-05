@@ -6,7 +6,6 @@ function errorPosition() {
 }
 
 function exportPosition(position) {
- 
     // Get the geolocation properties and set them as variables
     var latitude = position.coords.latitude;
     var longitude  = position.coords.longitude;
@@ -16,11 +15,6 @@ function exportPosition(position) {
 var buildUI = function(data) {
 	console.log(data);
 	var i = 0;	
-	$('body').attr({
-		"data-spy": "scroll",
-		"data-target": "#myScrollspy",
-		"data-offset":"200"
-	});
 	//if there is no result for the search 
 	if (data.results.length < 1) {
 		$('.nothingHere').remove();
@@ -38,8 +32,11 @@ var buildUI = function(data) {
 			if (data.results[i].name){
 				listItem = data.results[i].name.substring(0,30);
 				listItemID = listItem.replace(/\s/g, '');
-				$('#scrollSpyList').append('<li><a href="#eventNmbr' + i + '">' + listItem + '</a></li>');
-				$('.' +i).append('<div class="panel-heading" role="tab" id="' + listItemID + '"><a role="button" data-toggle="collapse" href="#event' + i + '" aria-expanded="true" aria-controls=#event' + i + '"><h3 class="panel-title title">' + data.results[i].name + '&nbsp&nbsp&nbsp<small>Click here to see full event description</small></h3></a></div>');
+
+			//add the scrollspy li items
+			$('#scrollSpyList').append('<li><a href="#eventNmbr' + i + '">' + listItem + '</a></li>');
+
+			$('.' +i).append('<div class="panel-heading" role="tab" id="' + listItemID + '"><a role="button" data-toggle="collapse" href="#event' + i + '" aria-expanded="true" aria-controls=#event' + i + '"><h3 class="panel-title title">' + data.results[i].name + '&nbsp&nbsp&nbsp<small>Click here to see full event description</small></h3></a></div>');
 			};
 			if (data.results[i].description) {
 				$('.' +i).append('<div role="tabpanel" class="panel-collapse collapse" id="event' + i + '"><div class="panel-body"><p>' + (data.results[i].description) + '</p></div></div></div>');
@@ -139,13 +136,9 @@ $('#zipInput').submit(function(e){
 	zipCheck(zipSearch);
 });
 
-// $('#zipButton').click(function(){
-// 	var zipSearch = ($('#zipcode').val());
-// 	zipCheck(zipSearch);
-// });
-
 $(document).ajaxComplete(function(){
 	$('.description').click(function(){
 		$(this).toggleClass('full');
 	});
 });
+
