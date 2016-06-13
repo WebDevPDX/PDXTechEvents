@@ -1,5 +1,8 @@
 var data;
 var zipSearch;
+var latitude;
+var longitude;
+var id;
 
 function errorPosition() {                  
     alert('Sorry couldn\'t find your location');                        
@@ -7,19 +10,21 @@ function errorPosition() {
 
 function exportPosition(position) {
     // Get the geolocation properties and set them as variables
-    var latitude = position.coords.latitude;
-    var longitude  = position.coords.longitude;
-    ajaxCallLocation(latitude, longitude);
+    latitude = position.coords.latitude;
+    longitude  = position.coords.longitude;
+    ajaxCallLocation(latitude, longitude, data, id);
 }
 
 var buildUI = function(data) {
 	console.log(data);
-	var i = 0;	
+	var i = 0;
+	$('.event').remove();
+
 	//if there is no result for the search 
 	if (data.results.length < 1) {
 		$('.nothingHere').remove();
-		$('.wrapper').append('<div class="nothingHere">It seems like there are no upcoming tech meetups within 25 miles of zip code: ' + zipSearch + '</div>');
-	//otherwise
+		$('#contentWrapper').append('<div class="nothingHere">It seems like there are no upcoming tech meetups within 25 miles of zip code: ' + zipSearch + '</div>');
+	//Present list of selected events.
 	} else {
 		$('.nothingHere').remove();
 		$.each(data.results, function(){
@@ -28,15 +33,15 @@ var buildUI = function(data) {
 			//create the event wrapper
 			$('#contentWrapper').append('<div class="panel panel-default event' + ' ' + i + '" id="eventNmbr' + i + '"></div>')	
 			//select event wrapper and append content for each event
-			//check if content exists in json file, if it does append it, otherwise move on to next step
-			if (data.results[i].name){
+			//check if content exists in json data object, if it does append it, otherwise move on to next step
+			if (data.results[i].name) {
 				listItem = data.results[i].name.substring(0,30);
 				listItemID = listItem.replace(/\s/g, '');
 
-			//add the scrollspy li items
-			$('#scrollSpyList').append('<li><a href="#eventNmbr' + i + '">' + listItem + '</a></li>');
+				//add the scrollspy li items
+				$('#scrollSpyList').append('<li class="event"><a href="#eventNmbr' + i + '">' + listItem + '</a></li>');
 
-			$('.' +i).append('<div class="panel-heading" role="tab" id="' + listItemID + '"><a role="button" data-toggle="collapse" href="#event' + i + '" aria-expanded="true" aria-controls=#event' + i + '"><h3 class="panel-title title">' + data.results[i].name + '&nbsp&nbsp&nbsp<small>Click here to see full event description</small></h3></a></div>');
+				$('.' +i).append('<div class="panel-heading" role="tab" id="' + listItemID + '"><a role="button" data-toggle="collapse" href="#event' + i + '" aria-expanded="true" aria-controls=#event' + i + '"><h3 class="panel-title title">' + data.results[i].name + '&nbsp&nbsp&nbsp<small>Click here to see full event description</small></h3></a></div>');
 			};
 			if (data.results[i].description) {
 				$('.' +i).append('<div role="tabpanel" class="panel-collapse collapse" id="event' + i + '"><div class="panel-body"><p>' + (data.results[i].description) + '</p></div></div></div>');
@@ -84,12 +89,12 @@ var buildUI = function(data) {
 	}
 };
 
-var ajaxCallLocation = function(latitude, longitude, data){
+var ajaxCallLocation = function(latitude, longitude, data, id){
 	console.log('latitude:' + latitude);
 	console.log('longitude:' + longitude);
 	$.ajax ({
 		type: "GET",
-		url: "https://api.meetup.com/2/open_events?and_text=False&offset=0&format=json&lon=" + longitude + "&limited_events=False&photo-host=public&page=100&radius=25&category=34&lat=" + latitude + "&desc=False&status=upcoming&sign=true&key=54347e276174919776f82826417369",
+		url: "https://api.meetup.com/2/open_events?and_text=False&offset=0&format=json&lon=" + longitude + "&limited_events=False&photo-host=public&page=100&radius=25&category=" + id + "&lat=" + latitude + "&desc=False&status=upcoming&sign=true&key=54347e276174919776f82826417369",
 		dataType: "jsonp",
 		success: function(data){
 			buildUI(data);
@@ -97,10 +102,10 @@ var ajaxCallLocation = function(latitude, longitude, data){
 	});
 }
 
-var ajaxCallZip = function(zipSearch, data){
+var ajaxCallZip = function(zipSearch, data, id){
 	$.ajax ({
 		type: "GET",
-		url: "http://api.meetup.com/2/open_events/?zip=" + zipSearch + "&time=,1w&and_text=False&offset=0&format=json&limited_events=False&photo-host=public&page=100&radius=25&category=34&desc=False&status=upcoming&sign=true&key=54347e276174919776f82826417369",
+		url: "http://api.meetup.com/2/open_events/?zip=" + zipSearch + "&time=,1w&and_text=False&offset=0&format=json&limited_events=False&photo-host=public&page=100&radius=25&category=" + id + "&desc=False&status=upcoming&sign=true&key=54347e276174919776f82826417369",
 		dataType: "jsonp",
 		success: function(data){
 			buildUI(data);
@@ -117,28 +122,55 @@ var zipCheck = function(zipSearch) {
 		$('.alert').remove();
 		//remove any previously attached events
 		$('.event').remove();
-		ajaxCallZip(zipSearch);
+		ajaxCallZip(zipSearch, data, id);
 	}
 }
 
-if (navigator.geolocation) {    
-    $('#geoButton').click(function(e) {
-	    e.preventDefault();
-	    navigator.geolocation.getCurrentPosition(exportPosition, errorPosition);
-	});     
-    } else {    
-    alert('Sorry your browser doesn\'t support the Geolocation API');    
+var buildOptions = function(categoryData) {
+	$(document).ready(function(){
+		var j = 0;
+		$.each(categoryData.results, function(){
+            $('#groupSelect').append('<option value="' + categoryData.results[j].id + '">' + categoryData.results[j].name + '</option>');
+            j++;
+        });
+    });
 }
 
-$('#zipInput').submit(function(e){
-	e.preventDefault();
-	var zipSearch = ($('#zipcode').val());
-	zipCheck(zipSearch);
+$.ajax({
+	type: "GET",
+	url: "https://api.meetup.com/2/categories?offset=0&format=json&photo-host=public&page=100&order=shortname&desc=false&sig_id=13612177&sign=true&key=54347e276174919776f82826417369",
+	dataType: "jsonp",
+    success: function(categoryData) {
+    	buildOptions(categoryData);     
+    }
 });
 
-$(document).ajaxComplete(function(){
-	$('.description').click(function(){
-		$(this).toggleClass('full');
+
+$(document).ready(function(){
+	if (navigator.geolocation) {    
+	    $('#geoButton').click(function(e) {
+		    e.preventDefault();
+		    navigator.geolocation.getCurrentPosition(exportPosition, errorPosition);
+		});     
+	    } else {    
+	    alert('Sorry your browser doesn\'t support the Geolocation API');    
+	}
+
+	$('select').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+	id = this.value;
+	});
+
+	$('#zipInput').submit(function (e){
+		e.preventDefault();
+		var zipSearch = ($('#zipcode').val());
+		zipCheck(zipSearch);
+	});
+
+	$(document).ajaxComplete(function(){
+		$('.description').click(function(){
+			$(this).toggleClass('full');
+		});
 	});
 });
 
