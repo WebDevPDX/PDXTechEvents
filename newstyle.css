@@ -8,6 +8,10 @@ body {
 	margin-right: 10px;
 }
 
+h3 small {
+	font-size: 80%;
+}
+
 .form-inline {
     text-align: center;
 }

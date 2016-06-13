@@ -6,25 +6,34 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="Collection of Tech Meetup Events based on location">
 		<meta name="author" content="Falk Schwiefert (webdevpdx.com)">
-		<title>Tech Meetup Events</title>
+		<title>Find Meetup Events</title>
 		<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet'>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<link rel="stylesheet" href="newstyle.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="script.js"></script>
 	</head>
 	<body  data-spy="scroll" data-target="#myScrollspy" data-offset="100">
 		<div class="container">
 			<div class="row">
 				<div class="jumbotron">
 					<header>
-						<h1 class="text-center">Tech Meetup Events</h1>
+						<h1 class="text-center">Find Your Meetup Event</h1>
 					</header>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="jumbotron">
-					<p class="lead text-center">Please enter the 5 digit zip code or click the "My location" button for automatic detection</p>
+					<p class="lead text-center">Please pick the category of meetups you would like to see, enter the 5 digit zip code or click the "My location" button for automatic detection</p>
 					<form class="zipInput form-inline" id="zipInput">
+						<fieldset class="form-group">
+							<label for="groupSelect"></label> 
+								<select class="form-control" name="groupSelect" id="groupSelect">
+									<option value="" selected>Please select a Category</option>
+								</select>
+						</fieldset>
 						<fieldset class="form-group">
 							<label class="sr-only" for="zipcode">Zip Code</label>
 							<input class="zipcode btn-lg form-control" id="zipcode" type="text" value="" pattern="\d*" placeholder="ZIP code">
@@ -45,24 +54,7 @@
 		            </ul>
 		        </nav>
 			</div>
-
-			<!-- <section class="geoLocation">
-				<div class="wrapper">
-					<div id="map">				    
-					    <div class="longitude">
-					    </div>
-					    <div class="lattitude">
-					    </div>
-					</div> 
-				</div>
-			</section>
-			<section class="result">
-				
-			</section> -->
-		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-		<script src="script.js"></script>		
+		</div>		
 	</body>
 </html>
 
