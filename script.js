@@ -105,7 +105,7 @@ var ajaxCallLocation = function(latitude, longitude, data, id){
 var ajaxCallZip = function(zipSearch, data, id){
 	$.ajax ({
 		type: "GET",
-		url: "http://api.meetup.com/2/open_events/?zip=" + zipSearch + "&time=,1w&and_text=False&offset=0&format=json&limited_events=False&photo-host=public&page=100&radius=25&category=" + id + "&desc=False&status=upcoming&sign=true&key=54347e276174919776f82826417369",
+		url: "https://api.meetup.com/2/open_events/?zip=" + zipSearch + "&time=,1w&and_text=False&offset=0&format=json&limited_events=False&photo-host=public&page=100&radius=25&category=" + id + "&desc=False&status=upcoming&sign=true&key=54347e276174919776f82826417369",
 		dataType: "jsonp",
 		success: function(data){
 			buildUI(data);
